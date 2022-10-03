@@ -34,4 +34,8 @@ public class UserService {
             throw new RuntimeException();
         }
     }
+
+    public void delete(User user){
+        this.userRepository.delete(user);
+    }
 }

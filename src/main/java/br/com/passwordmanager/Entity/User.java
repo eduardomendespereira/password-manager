@@ -12,13 +12,13 @@ import java.util.Objects;
 public class User extends AbstractEntity{
     @Getter
     @Setter
-    @Length(min = 3, max = 50, message = "A descricao deverá ter no máximo {max} caracteres")
-    @Column(name = "description", nullable = false, length = 50)
+    @Length(min = 3, max = 255, message = "A descricao deverá ter no máximo {max} caracteres")
+    @Column(name = "description", nullable = false, length = 255)
     private String description;
 
     @Getter
     @Setter
-    @Length(min = 3, max = 20, message = "A url deverá ter no máximo {max} caracteres")
+    @Length(min = 3, max = 255, message = "A url deverá ter no máximo {max} caracteres")
     @Column(name = "url", nullable = false, length = 20, unique = true)
     private String url;
 
