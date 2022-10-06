@@ -28,8 +28,8 @@ public class PasswordService {
         return this.passwordRepository.findAll(pageable);
     }
 
-    public void save(Password password){
-        this.passwordRepository.save(password);
+    public Password save(Password password){
+        return this.passwordRepository.save(password);
     }
 
     public void update(Long id, Password password){

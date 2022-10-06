@@ -20,12 +20,16 @@ public class UserService {
         return this.userRepository.findById(id);
     }
 
+    public Optional<User> findByUsername(String username){
+        return this.userRepository.findByUsername(username);
+    }
+
     public Page<User> findAll(Pageable pageable){
         return this.userRepository.findAll(pageable);
     }
 
-    public void save(User user){
-        this.userRepository.save(user);
+    public User save(User user){
+        return this.userRepository.save(user);
     }
 
     public void update(Long id, User user){

@@ -13,7 +13,7 @@ public class User extends AbstractEntity{
     @Getter
     @Setter
     @Length(min = 3, max = 50, message = "A descricao deverá ter no máximo {max} caracteres")
-    @Column(name = "username", nullable = false, length = 50)
+    @Column(name = "username", nullable = false, length = 50, unique = true)
     private String username;
 
     @Getter
