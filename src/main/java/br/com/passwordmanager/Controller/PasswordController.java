@@ -18,24 +18,36 @@ public class PasswordController {
     private final PasswordService passwordService;
 
     @GetMapping("/{idPassword")
-    public ResponseEntity<Password> findById(
+    public ResponseEntity<?> findById(
             @PathVariable Long idPassword
     ){
-        return ResponseEntity.ok().body(this.passwordService.findById(idPassword).get());
+        try {
+            return ResponseEntity.ok().body(this.passwordService.findById(idPassword).get());
+        } catch (Exception e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     @GetMapping("/{description")
-    public ResponseEntity<Password> findByDescription(
+    public ResponseEntity<?> findByDescription(
             @PathVariable String description
     ){
-        return ResponseEntity.ok().body(this.passwordService.findByDescription(description).get());
+        try{
+            return ResponseEntity.ok().body(this.passwordService.findByDescription(description).get());
+        } catch (Exception e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     @GetMapping
-    public ResponseEntity<Page<Password>> findAll(
+    public ResponseEntity<?> findAll(
             Pageable pageable
     ){
-        return ResponseEntity.ok().body(this.passwordService.findAll(pageable));
+        try {
+            return ResponseEntity.ok().body(this.passwordService.findAll(pageable));
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     @PutMapping("/{idPassword}")
@@ -64,7 +76,12 @@ public class PasswordController {
     }
 
     @PutMapping("/disable/")
-    public void disable(@PathVariable Long idPassword) {
-        passwordService.disable(idPassword);
+    public ResponseEntity<?> disable(@PathVariable Long idPassword) {
+        try {
+            this.passwordService.disable(idPassword);
+            return ResponseEntity.ok().body("Senha desativada com sucesso!");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 }
