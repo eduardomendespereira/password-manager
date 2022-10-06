@@ -24,6 +24,13 @@ public class PasswordController {
         return ResponseEntity.ok().body(this.passwordService.findById(idPassword).get());
     }
 
+    @GetMapping("/{description")
+    public ResponseEntity<Password> findByDescription(
+            @PathVariable String description
+    ){
+        return ResponseEntity.ok().body(this.passwordService.findByDescription(description).get());
+    }
+
     @GetMapping
     public ResponseEntity<Page<Password>> findAll(
             Pageable pageable
