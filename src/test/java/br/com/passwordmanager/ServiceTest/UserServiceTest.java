@@ -5,23 +5,23 @@ import br.com.passwordmanager.Service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import static org.junit.jupiter.api.Assertions.*;
-@RequiredArgsConstructor
 @SpringBootTest
 public class UserServiceTest {
-
-    private final UserService userService;
+    @Autowired
+    private UserService userService;
     private User userFactory(){
-        User user = new User("username", "password", "url1");
+        User user = new User("aaaaaaaa", "bbbbbbbb", "ccccccc");
         return user;
     }
 
     @Test
-    private void insert(){
+    public void insert(){
         User user = userFactory();
         this.userService.save(user);
         var getUser = this.userService.findById(user.getId());
-        Assertions.assertEquals(getUser, user);
+        Assertions.assertEquals(getUser.get().getUsername(), user.getUsername());
     }
 }

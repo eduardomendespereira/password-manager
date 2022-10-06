@@ -19,7 +19,7 @@ public class User extends AbstractEntity{
     @Getter
     @Setter
     @Length(min = 3, max = 255, message = "A url deverá ter no máximo {max} caracteres")
-    @Column(name = "url", nullable = false, length = 20, unique = true)
+    @Column(name = "url", nullable = false, length = 20)
     private String url;
 
     @Getter
