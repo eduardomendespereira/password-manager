@@ -18,25 +18,17 @@ public class User extends AbstractEntity{
 
     @Getter
     @Setter
-    @Length(min = 3, max = 255, message = "A url deverá ter no máximo {max} caracteres")
-    @Column(name = "url", nullable = false, length = 20)
-    private String url;
-
-    @Getter
-    @Setter
     @Column(name = "password", nullable = false, length = 255)
     private String password;
 
-    public User(String username, String url, String password) {
+    public User(String username, String password) {
         this.username = username;
-        this.url = url;
         this.password = password;
     }
 
-    public User(Long id, LocalDateTime registered, boolean inactive, String username, String url, String password) {
+    public User(Long id, LocalDateTime registered, boolean inactive, String username, String password) {
         super(id, registered, inactive);
         this.username = username;
-        this.url = url;
         this.password = password;
     }
 
@@ -48,11 +40,11 @@ public class User extends AbstractEntity{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(username, user.username) && Objects.equals(url, user.url) && Objects.equals(password, user.password);
+        return Objects.equals(username, user.username) && Objects.equals(password, user.password);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(username, url, password);
+        return Objects.hash(username, password);
     }
 }

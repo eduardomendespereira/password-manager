@@ -3,6 +3,7 @@ package br.com.passwordmanager.Service;
 import br.com.passwordmanager.Entity.User;
 import br.com.passwordmanager.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -10,10 +11,10 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
 public class UserService {
 
-    private final UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     public Optional<User> findById(Long id){
         return this.userRepository.findById(id);

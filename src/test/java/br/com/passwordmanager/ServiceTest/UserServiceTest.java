@@ -13,7 +13,7 @@ public class UserServiceTest {
     @Autowired
     private UserService userService;
     private User userFactory(){
-        User user = new User("aaaaaaaa", "bbbbbbbb", "ccccccc");
+        User user = new User("aaaaaaaa", "ccccccc");
         return user;
     }
 
