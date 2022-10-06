@@ -40,7 +40,7 @@ public class UserService {
         }
     }
 
-    public void delete(User user){
-        this.userRepository.delete(user);
+    public void disable(Long id){
+        this.userRepository.disable(id);
     }
 }

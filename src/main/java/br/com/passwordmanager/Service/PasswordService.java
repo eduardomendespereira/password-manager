@@ -40,8 +40,8 @@ public class PasswordService {
         }
     }
 
-    public void delete(Password password){
-        this.passwordRepository.delete(password);
+    public void disable(Long id){
+        this.passwordRepository.disable(id);
     }
 }
 

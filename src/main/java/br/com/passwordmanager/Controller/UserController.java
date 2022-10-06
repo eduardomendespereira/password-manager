@@ -55,9 +55,9 @@ public class UserController {
         }
     }
 
-    @DeleteMapping("/disable/")
-    public void disable(@RequestBody User user) {
-        userService.delete(user);
+    @PutMapping("/disable/")
+    public void disable(@PathVariable Long idUser) {
+        userService.disable(idUser);
     }
 
 }

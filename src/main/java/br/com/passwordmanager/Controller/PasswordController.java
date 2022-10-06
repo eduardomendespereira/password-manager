@@ -63,8 +63,8 @@ public class PasswordController {
         }
     }
 
-    @DeleteMapping("/disable/")
-    public void disable(@RequestBody Password password) {
-        passwordService.delete(password);
+    @PutMapping("/disable/")
+    public void disable(@PathVariable Long idPassword) {
+        passwordService.disable(idPassword);
     }
 }
