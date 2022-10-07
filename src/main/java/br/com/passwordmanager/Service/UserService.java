@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -15,6 +16,9 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public Optional<User> findById(Long id){
         return this.userRepository.findById(id);
@@ -42,10 +46,18 @@ public class UserService {
 
     public void delete(Long id) {
         var user = this.userRepository.findById(id);
-//        if (user.isPresent()) {
-            this.userRepository.delete(user.get());
-//        }else {
-//            throw new RuntimeException("Usuario nao encontrado");
-//        }
+        this.userRepository.delete(user.get());
+    }
+
+    public User login(User user){
+        var userDatabase = this.userRepository.findByUsername(user.getUsername());
+        if(userDatabase.isPresent() && this.checkPassword(user.getPassword(), userDatabase.get().getPassword())){
+            return userDatabase.get();
+        }
+        throw new RuntimeException("Usuario nao encontrado");
+    }
+
+    private boolean checkPassword(String password1, String password2){
+        return this.passwordEncoder.matches(password1, password2);
     }
 }
