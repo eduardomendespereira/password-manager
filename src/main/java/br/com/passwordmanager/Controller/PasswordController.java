@@ -1,12 +1,8 @@
 package br.com.passwordmanager.Controller;
 
 import br.com.passwordmanager.Entity.Password;
-import br.com.passwordmanager.Entity.User;
 import br.com.passwordmanager.Service.PasswordService;
-import br.com.passwordmanager.Service.UserService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -77,11 +73,11 @@ public class PasswordController {
         }
     }
 
-    @PutMapping("/disable/")
-    public ResponseEntity<?> disable(@PathVariable Long idPassword) {
+    @DeleteMapping("/{idPassword}")
+    public ResponseEntity<?> delete(@PathVariable Long idPassword) {
         try {
-            this.passwordService.disable(idPassword);
-            return ResponseEntity.ok().body("Senha desativada com sucesso!");
+            this.passwordService.delete(idPassword);
+            return ResponseEntity.ok().body("Senha deletada com sucesso");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }

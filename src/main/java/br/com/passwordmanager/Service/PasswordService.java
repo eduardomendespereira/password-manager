@@ -53,8 +53,13 @@ public class PasswordService {
         }
     }
 
-    public void disable(Long id){
-        this.passwordRepository.disable(id);
+    public void delete(Long id){
+        Optional<Password> password = this.passwordRepository.findById(id);
+        if (password.isPresent()) {
+            this.passwordRepository.delete(password.get());
+            return;
+        }
+        throw new RuntimeException("Senha nao encontrada");
     }
 }
 
