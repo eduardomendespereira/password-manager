@@ -25,7 +25,11 @@ public class PasswordService {
     }
 
     public Optional<Password> findByDescription(String description){
-        return this.passwordRepository.findByDescription(description);
+        var getPassword = this.passwordRepository.findByDescription(description);
+        CipherPw cipherPw = new CipherPw();
+        String decryptedPassword = cipherPw.decrypt(getPassword.get().getPassword());
+        getPassword.get().setPassword(decryptedPassword);
+        return getPassword;
     }
 
     public Page<Password> findAll(Pageable pageable){
@@ -45,11 +49,11 @@ public class PasswordService {
         return this.passwordRepository.save(password);
     }
 
-    public void update(Long id, Password password){
-        if(id == password.getId()){
-            this.passwordRepository.save(password);
-        }else{
-            throw new RuntimeException();
+    public Password update(Long id, Password password) {
+        if (this.passwordRepository.findById(password.getId()).isPresent()) {
+            return this.save(password);
+        }else {
+            throw new RuntimeException("Senha nao encontrada");
         }
     }
 

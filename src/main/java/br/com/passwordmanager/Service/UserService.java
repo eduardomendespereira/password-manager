@@ -42,7 +42,7 @@ public class UserService {
         if (oldUser.isPresent() && this.checkPassword(user.getPassword(), oldUser.get().getPassword())) {
             return this.save(user);
         }
-        throw new RuntimeException("User not found");
+        throw new RuntimeException("Usuario nao encontrado");
     }
 
     public void delete(Long id) {
