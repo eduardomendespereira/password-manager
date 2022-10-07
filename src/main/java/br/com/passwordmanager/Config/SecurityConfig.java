@@ -1,5 +1,6 @@
 package br.com.passwordmanager.Config;
 
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -21,13 +22,12 @@ public class SecurityConfig {
 //                .and()
 //                .authorizeHttpRequests()
 //                .antMatchers(HttpMethod.GET, "/api/**").permitAll()
-//                .antMatchers(HttpMethod.POST, "/api/**").permitAll()
+//                .antMatchers(HttpMethod.POST, "/api").permitAll()
 //                .antMatchers(HttpMethod.PUT, "/api/**").permitAll()
 //                .antMatchers(HttpMethod.DELETE, "/api/**").permitAll()
 //                .anyRequest().authenticated()
 //                .and()
                 .csrf().disable();
-//        http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues());
         return http.build();
     }
 

@@ -33,15 +33,16 @@ public class UserService {
     }
 
     public User save(User user){
+        user.setPassword(this.passwordEncoder.encode(user.getPassword()));
         return this.userRepository.save(user);
     }
 
-    public void update(Long id, User user){
-        if(id == user.getId()){
-            this.userRepository.save(user);
-        }else{
-            throw new RuntimeException();
+    public User update(Long id, User user){
+        Optional<User> oldUser = this.userRepository.findById(user.getId());
+        if (oldUser.isPresent() && this.checkPassword(user.getPassword(), oldUser.get().getPassword())) {
+            return this.save(user);
         }
+        throw new RuntimeException("User not found");
     }
 
     public void delete(Long id) {
