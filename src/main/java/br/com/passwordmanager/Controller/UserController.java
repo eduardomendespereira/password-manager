@@ -3,6 +3,7 @@ package br.com.passwordmanager.Controller;
 import br.com.passwordmanager.Entity.User;
 import br.com.passwordmanager.Service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -10,17 +11,32 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequiredArgsConstructor
 @RequestMapping("/api/users")
 public class UserController {
 
-    private final UserService userService;
+    @Autowired
+    private UserService userService;
 
-    @GetMapping("/{idUser")
-    public ResponseEntity<User> findById(
+    @GetMapping("/{idUser}")
+    public ResponseEntity<?> findById(
             @PathVariable Long idUser
     ){
-        return ResponseEntity.ok().body(this.userService.findById(idUser).get());
+        try {
+            return ResponseEntity.ok().body(this.userService.findById(idUser).get());
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/findUsername/{username}")
+    public ResponseEntity<?> findByUsername(
+            @PathVariable String username
+    ){
+        try {
+            return ResponseEntity.ok().body(this.userService.findByUsername(username).get());
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     @GetMapping

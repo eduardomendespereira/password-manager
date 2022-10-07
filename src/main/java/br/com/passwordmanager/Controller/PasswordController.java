@@ -5,6 +5,7 @@ import br.com.passwordmanager.Entity.User;
 import br.com.passwordmanager.Service.PasswordService;
 import br.com.passwordmanager.Service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -12,12 +13,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequiredArgsConstructor
 @RequestMapping("/api/passwords")
 public class PasswordController {
-    private final PasswordService passwordService;
 
-    @GetMapping("/{idPassword")
+    @Autowired
+    private PasswordService passwordService;
+
+    @GetMapping("/{idPassword}")
     public ResponseEntity<?> findById(
             @PathVariable Long idPassword
     ){
@@ -28,7 +30,7 @@ public class PasswordController {
         }
     }
 
-    @GetMapping("/{description")
+    @GetMapping("/findDescription/{description}")
     public ResponseEntity<?> findByDescription(
             @PathVariable String description
     ){
