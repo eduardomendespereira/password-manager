@@ -40,7 +40,12 @@ public class UserService {
         }
     }
 
-    public void disable(Long id){
-        this.userRepository.disable(id);
+    public void delete(Long id) {
+        var user = this.userRepository.findById(id);
+//        if (user.isPresent()) {
+            this.userRepository.delete(user.get());
+//        }else {
+//            throw new RuntimeException("Usuario nao encontrado");
+//        }
     }
 }

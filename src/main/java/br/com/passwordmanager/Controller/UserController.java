@@ -71,9 +71,14 @@ public class UserController {
         }
     }
 
-    @PutMapping("/disable/")
-    public void disable(@PathVariable Long idUser) {
-        userService.disable(idUser);
+    @DeleteMapping("/{idUser}")
+    public ResponseEntity<?> delete(@PathVariable Long idUser) {
+        try {
+            this.userService.delete(idUser);
+            return ResponseEntity.ok().body("Usuario deletado com sucesso");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
 }
