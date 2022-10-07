@@ -1,8 +1,8 @@
 package br.com.passwordmanager.Service;
 
 import br.com.passwordmanager.Entity.Password;
-import br.com.passwordmanager.Entity.User;
 import br.com.passwordmanager.Repository.PasswordRepository;
+import br.com.passwordmanager.Utils.CipherPw;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,8 +16,12 @@ public class PasswordService {
     @Autowired
     private PasswordRepository passwordRepository;
 
-    public Optional<Password> findById(Long id){
-        return this.passwordRepository.findById(id);
+    public Password findById(Long id){
+        Password password = this.passwordRepository.findById(id).get();
+        CipherPw cipherPw = new CipherPw();
+        String decryptedPassword = cipherPw.decrypt(password.getPassword());
+        password.setPassword(decryptedPassword);
+        return password;
     }
 
     public Optional<Password> findByDescription(String description){
@@ -25,10 +29,19 @@ public class PasswordService {
     }
 
     public Page<Password> findAll(Pageable pageable){
-        return this.passwordRepository.findAll(pageable);
+        Page<Password> passwords = this.passwordRepository.findAll(pageable);
+        CipherPw cipherPw = new CipherPw();
+        for (Password password : passwords) {
+            String decryptedPassword = cipherPw.decrypt(password.getPassword());
+            password.setPassword(decryptedPassword);
+        }
+        return passwords;
     }
 
     public Password save(Password password){
+        CipherPw cipherPw = new CipherPw();
+        String encryptedPassword = cipherPw.encrypt(password.getPassword());
+        password.setPassword(encryptedPassword);
         return this.passwordRepository.save(password);
     }
 

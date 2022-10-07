@@ -22,7 +22,7 @@ public class PasswordController {
             @PathVariable Long idPassword
     ){
         try {
-            return ResponseEntity.ok().body(this.passwordService.findById(idPassword).get());
+            return ResponseEntity.ok().body(this.passwordService.findById(idPassword));
         } catch (Exception e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }
